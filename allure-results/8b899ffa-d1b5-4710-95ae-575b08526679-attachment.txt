@@ -1,0 +1,2 @@
+INFO:test_login_api:Requesting organization data from https://api.staging.krishivaas.ai/api/v1/get-organizition
+INFO:test_login_api:Response status: 200

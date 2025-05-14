@@ -1,0 +1,3 @@
+URL: https://api.staging.krishivaas.ai/api/v1/get-organizition
+Headers: {'Authorization': '***REDACTED***'}
+Params: {'org_id': 48, 'ogs_id': 115}

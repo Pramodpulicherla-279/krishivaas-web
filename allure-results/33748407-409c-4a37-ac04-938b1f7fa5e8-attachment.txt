@@ -1,0 +1,2 @@
+[32mINFO    [0m test_login_api:test_login_api.py:154 Requesting organization data from https://api.staging.krishivaas.ai/api/v1/get-organizition
+[32mINFO    [0m test_login_api:test_login_api.py:184 Response status: 200

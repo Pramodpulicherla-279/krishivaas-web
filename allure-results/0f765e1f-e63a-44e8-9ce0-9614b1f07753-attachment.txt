@@ -1,0 +1,1 @@
+INFO:test_login_api:Organization detail response: 200

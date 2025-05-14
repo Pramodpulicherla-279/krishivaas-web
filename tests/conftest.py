@@ -1,17 +1,37 @@
-# conftest.py
+# import pytest
+# import allure
+# from datetime import datetime
+
+# @pytest.hookimpl(hookwrapper=True)
+# def pytest_runtest_makereport(item, call):
+#     """Attach additional information to Allure reports."""
+#     outcome = yield
+#     report = outcome.get_result()
+
+#     if report.when == 'call' and report.failed:
+#         # Attach failure details to Allure report
+#         allure.attach(
+#             body=f"Test failed: {item.name}\nReason: {call.excinfo}",
+#             name="Failure Details",
+#             attachment_type=allure.attachment_type.TEXT
+#         )
+
 import pytest
-from datetime import datetime
-from html import escape  # Use this for escaping HTML content
+import allure
+import logging
 
-def pytest_html_report_title(report):
-    report.title = "Website Test Report"
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-@pytest.hookimpl(hookwrapper=True)
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
+    """Add Allure attachments for failed tests"""
     outcome = yield
-    report = outcome.get_result()
+    rep = outcome.get_result()
     
-    if report.when == 'call':
-        # Add extra information to the report
-        additional_info = '<div class="additional-info">Additional test information</div>'
-        report.extra = [escape(additional_info)]
+    if rep.when == "call" and rep.failed:
+        allure.attach(
+            body=str(item.funcargs),
+            name="Test Arguments",
+            attachment_type=allure.attachment_type.TEXT
+        )

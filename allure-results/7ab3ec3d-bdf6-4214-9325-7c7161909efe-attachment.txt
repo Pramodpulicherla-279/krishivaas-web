@@ -1,0 +1,1 @@
+[32mINFO    [0m test_login_api:test_login_api.py:128 Organization detail response: 200

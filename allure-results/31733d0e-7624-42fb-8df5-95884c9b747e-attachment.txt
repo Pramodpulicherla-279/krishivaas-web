@@ -1,0 +1,2 @@
+[32mINFO    [0m test_login_api:test_login_api.py:74 Successfully obtained authentication token
+[32mINFO    [0m test_login_api:test_login_api.py:88 Login API test completed successfully

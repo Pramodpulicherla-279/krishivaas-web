@@ -1,0 +1,2 @@
+INFO:test_login_api:Successfully obtained authentication token
+INFO:test_login_api:Login API test completed successfully
