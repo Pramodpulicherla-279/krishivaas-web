@@ -17,7 +17,7 @@ jobs:
         pip install pytest requests pytest-html pytest-metadata
     - name: Run tests
       run: |
-        pytest /tests/api --html=report.html --self-contained-html
+        pytest /krishivaas-web/tests/api --html=report.html --self-contained-html
     - name: Upload test report
       uses: actions/upload-artifact@v4
       with:
