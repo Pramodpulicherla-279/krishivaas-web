@@ -14,6 +14,8 @@ TEST_USER = {
     "password": "Dmart@!2024"
 }
 
+# ...existing code...
+
 @pytest.fixture(scope="function")
 def auth_token(request):
     """Login and return auth token and response details"""
@@ -33,7 +35,8 @@ def auth_token(request):
     if hasattr(request.node.config, "_html"):
         request.node.config._html.extras.append({
             "name": "Login Response",
-            "content": f"Status: {response.status_code}\n{response.text}"
+            "content": f"<pre>Status: {response.status_code}\n{response.text}</pre>",
+            "format_type": "html"
         })
     
     # Assertions
@@ -41,6 +44,8 @@ def auth_token(request):
     token = response.json().get("token")
     assert token, "No token received in login response"
     return token
+
+# ...existing code...
 
 def test_login_api(auth_token, request):
     """Test login API and print response in pytest report"""
