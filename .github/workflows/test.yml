@@ -29,7 +29,7 @@ jobs:
         TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        pytest tests/api --alluredir=allure-results -v
+        pytest tests/ --alluredir=allure-results -v
         
     - name: Generate report
       run: |
