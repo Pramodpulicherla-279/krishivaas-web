@@ -15,19 +15,24 @@ TEST_USER = {
 }
 
 @pytest.fixture(scope="function")
-def auth_token():
-    """Login and return auth token"""
+def auth_token(request):
+    """Login and return auth token and response details"""
     login_url = f"{BASE_URL}/api/v1/login"
     response = requests.post(login_url, json=TEST_USER)
     
     # Log response details
     logger.info(f"Login Response: {response.status_code} - {response.text}")
     
-    # Print response details for pytest report
-    pytest.response_details = {
-        "status_code": response.status_code,
-        "response_text": response.text
+    # Store response details in the request node
+    request.node.response_details = {
+        'status_code': response.status_code,
+        'response_text': response.text
     }
+    
+    # Add response details to pytest-html extras
+    if hasattr(request.config, "_html"):
+        extra = request.config._html.extras.text(response.text, name="Login Response")
+        request.node._report_sections.append(("extras", "Login Response", extra))
     
     # Assertions
     assert response.status_code == 200, f"Login failed with {response.status_code}"
@@ -35,10 +40,10 @@ def auth_token():
     assert token, "No token received in login response"
     return token
 
-def test_login_api(auth_token):
+def test_login_api(auth_token, request):
     """Test login API and print response in pytest report"""
-    # Access the response details set in the fixture
-    response_details = pytest.response_details
+    # Access the response details from the request node
+    response_details = request.node.response_details
     
     # Print response details to console
     print("\n--- Login API Response ---")
