@@ -18,6 +18,8 @@ TEST_USER = {
 
 # ...existing code...
 
+# ...existing code...
+
 @pytest.fixture(scope="function")
 def auth_token(request):
     """Login and return auth token and response details"""
@@ -49,7 +51,7 @@ def auth_token(request):
     assert token, "No token received in login response"
     return token
 
-# ...existing code...
+# ...existing code...# ...existing code...
 
 def test_login_api(auth_token, request):
     """Test login API and print response in pytest report"""
