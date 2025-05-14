@@ -29,11 +29,12 @@ def auth_token(request):
         'response_text': response.text
     }
     
-    # Add response details to pytest-html extras (updated version)
+    # Add response details to pytest-html extras (corrected version)
     if hasattr(request.node.config, "_html"):
-        request.node.config._html.extras.append(
-            {"name": "Login Response", "format": "text", "content": f"Status: {response.status_code}\n{response.text}"}
-        )
+        request.node.config._html.extras.append({
+            "name": "Login Response",
+            "content": f"Status: {response.status_code}\n{response.text}"
+        })
     
     # Assertions
     assert response.status_code == 200, f"Login failed with {response.status_code}"
