@@ -14,10 +14,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest==7.4.0 requests pytest-html==3.2.0 pytest-metadata
+        pip install pytest==8.1.1 pytest-html==4.1.1 requests pytest-metadata
     - name: Run API tests
       run: |
-        pytest tests/api/ --html=report.html
+        pytest tests/api/ --html=report.html --self-contained-html
     - name: Upload test report
       uses: actions/upload-artifact@v4
       with:
