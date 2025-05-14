@@ -16,6 +16,8 @@ TEST_USER = {
 
 # ...existing code...
 
+# ...existing code...
+
 @pytest.fixture(scope="function")
 def auth_token(request):
     """Login and return auth token and response details"""
@@ -33,6 +35,8 @@ def auth_token(request):
     
     # Add response details to pytest-html extras (corrected version)
     if hasattr(request.node.config, "_html"):
+        if not hasattr(request.node.config._html, "extras"):
+            request.node.config._html.extras = []
         request.node.config._html.extras.append({
             "name": "Login Response",
             "content": f"<pre>Status: {response.status_code}\n{response.text}</pre>",
