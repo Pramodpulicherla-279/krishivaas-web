@@ -17,7 +17,7 @@ jobs:
         pip install pytest==7.4.0 requests pytest-html==3.2.0 pytest-metadata
     - name: Run API tests
       run: |
-        pytest tests/api/ --html=report.html --self-contained-html
+        pytest tests/api/ --html=report.html
     - name: Upload test report
       uses: actions/upload-artifact@v4
       with:
