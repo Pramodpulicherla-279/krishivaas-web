@@ -2,16 +2,22 @@ name: API Tests with Deployment
 
 on:
   push:
-    branches: [ pramod ]  # Only trigger on main branch
+    branches: [ pramod ]
   pull_request:
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push to gh-pages branch
+      pages: write     # Required for GitHub Pages deployment
+      actions: write   # Required for workflow operations
+      checks: write    # Required for status checks
+
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Required for proper git history
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -52,4 +58,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: ./allure-report
-        force_orphan: true  # Ensures clean deployment
+        force_orphan: true
