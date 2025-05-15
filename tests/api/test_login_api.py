@@ -94,7 +94,7 @@ def test_login_api(auth_token):
 def test_get_single_organization_detail():
     """Test GET single organization detail API"""
     url = f"{BASE_URL}/api/v1/get-single-organization-detail"
-    auth_token = "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5zdGFnaW5nLmtyaXNoaXZhYXMuYWkvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzQ3MjE2MzQyLCJleHAiOjE3NDk4MDgzNDIsIm5iZiI6MTc0NzIxNjM0MiwianRpIjoiVkJKdGJ4YmdFUVN4bmo2NCIsInN1YiI6IjEzODQiLCJwcnYiOiJmZjY2ZDA3ZjZkNDYyNzMzYmIyOWMzN2QyYTU5YmViZjZiZDY2NjQwIn0.OXzxNUpXpnoxl20s9B_-imreypJ07SZYXkkUD2EuSO0"
+    auth_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FwaS5zdGFnaW5nLmtyaXNoaXZhYXMuYWkvYXBpL3YxL2xvZ2luIiwiaWF0IjoxNzQ3MjE2MzQyLCJleHAiOjE3NDk4MDgzNDIsIm5iZiI6MTc0NzIxNjM0MiwianRpIjoiVkJKdGJ4YmdFUVN4bmo2NCIsInN1YiI6IjEzODQiLCJwcnYiOiJmZjY2ZDA3ZjZkNDYyNzMzYmIyOWMzN2QyYTU5YmViZjZiZDY2NjQwIn0.OXzxNUpXpnoxl20s9B_-imreypJ07SZYXkkUD2EuSO0"
     params = {
         "org_id": 48,
         "token": auth_token
