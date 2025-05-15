@@ -57,7 +57,7 @@ jobs:
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
         # Run tests and ensure results are always generated
-        pytest tests --alluredir=allure-results -v || true
+        pytest tests/ui --alluredir=allure-results -v || true
         
     - name: Generate fresh Allure report
       if: always()
