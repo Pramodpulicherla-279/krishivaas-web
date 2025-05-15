@@ -1,12 +1,17 @@
-name: API Tests
+name: API Tests with Deployment
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]  # Only trigger on main branch
+  pull_request:
 
 jobs:
-  test:
+  test-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Required for proper git history
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -19,15 +24,14 @@ jobs:
         pip install -r requirements.txt
         pip install allure-pytest
         
-    - name: Install Java (Allure dependency)
+    - name: Install Java
       run: sudo apt-get install -y default-jre
         
-    - name: Download and install Allure
+    - name: Install Allure
       run: |
         wget https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.24.0/allure-commandline-2.24.0.zip
         sudo unzip allure-commandline-2.24.0.zip -d /opt/
         sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
-        allure --version
         
     - name: Run tests
       env:
@@ -39,11 +43,13 @@ jobs:
         
     - name: Generate report
       run: |
+        mkdir -p allure-report
         allure generate allure-results --clean -o allure-report
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages  # Different from your source branch
+        publish_branch: gh-pages
         publish_dir: ./allure-report
+        force_orphan: true  # Ensures clean deployment
