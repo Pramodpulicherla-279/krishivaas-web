@@ -41,10 +41,9 @@ jobs:
       run: |
         allure generate allure-results --clean -o allure-report
         
-    - name: Deploy Allure Report to Custom Branch
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: pramod
-        publish_dir: allure-report
-        
+        publish_branch: gh-pages  # Different from your source branch
+        publish_dir: ./allure-report
