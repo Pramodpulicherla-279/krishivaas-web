@@ -2,7 +2,7 @@ name: API Tests with Deployment
 
 on:
   push:
-    branches: [ main ]  # Only trigger on main branch
+    branches: [ pramod ]  # Only trigger on main branch
   pull_request:
 
 jobs:
