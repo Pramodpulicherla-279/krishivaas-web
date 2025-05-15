@@ -2,6 +2,8 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture(scope="module")
@@ -12,16 +14,17 @@ def browser():
 
 def test_homepage_load(browser):
     browser.get("https://staging.krishivaas.ai/")
-    assert "Example" in browser.title
+    assert "Krishivaas" in browser.title
 
 def test_login(browser):
     browser.get("https://staging.krishivaas.ai/login")
-    username = browser.find_element(By.ID, "email")
-    password = browser.find_element(By.ID, "password")
-    submit = browser.find_element(By.ID, "submit")
-    
+    wait = WebDriverWait(browser, 10)
+    username = wait.until(EC.presence_of_element_located((By.ID, "email")))
+    password = wait.until(EC.presence_of_element_located((By.ID, "password")))
+    submit = wait.until(EC.element_to_be_clickable((By.ID, "login")))
+
     username.send_keys("dmart@yopmail.com")
     password.send_keys("Dmart@!2024")
     submit.click()
-    
+
     assert "Welcome" in browser.page_source

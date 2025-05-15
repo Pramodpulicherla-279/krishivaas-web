@@ -45,7 +45,7 @@ jobs:
         TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        pytest tests --alluredir=allure-results -v || true
+        pytest tests/api --alluredir=allure-results -v || true
         
     - name: Generate Allure report
       if: always()  # This ensures the step runs even if previous steps fail
