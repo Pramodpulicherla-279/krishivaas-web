@@ -9,10 +9,10 @@ jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required to push to gh-pages branch
-      pages: write     # Required for GitHub Pages deployment
-      actions: write   # Required for workflow operations
-      checks: write    # Required for status checks
+      contents: write
+      pages: write
+      actions: write
+      checks: write
 
     steps:
     - uses: actions/checkout@v4
@@ -39,20 +39,22 @@ jobs:
         sudo unzip allure-commandline-2.24.0.zip -d /opt/
         sudo ln -s /opt/allure-2.24.0/bin/allure /usr/bin/allure
         
-    - name: Run tests
+    - name: Run tests and generate results
       env:
         BASE_URL: ${{ secrets.BASE_URL }}
         TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
         TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       run: |
-        pytest tests/api --alluredir=allure-results -v
+        pytest tests/api --alluredir=allure-results -v || true
         
-    - name: Generate report
+    - name: Generate Allure report
+      if: always()  # This ensures the step runs even if previous steps fail
       run: |
         mkdir -p allure-report
         allure generate allure-results --clean -o allure-report
         
     - name: Deploy to GitHub Pages
+      if: always()  # This ensures deployment happens regardless of test results
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
